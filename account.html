@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Личный кабинет — кофейня «Хлопчик»</title>
+  <meta name="description" content="Вход и регистрация в личном кабинете кофейни «Хлопчик»: история заказов и личные данные.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="account">
+
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header class="head" id="head">
+  <div class="wrap head__in">
+    <a class="brand" href="index.html" aria-label="Хлопчик — на главную">
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M12 21.5h14v4.2a7 7 0 0 1-7 7 7 7 0 0 1-7-7v-4.2Z" fill="currentColor"/>
+        <path d="M26 22.6h1.9a3.4 3.4 0 0 1 0 6.8H26" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M16.5 16.4c0-1.8 1.8-1.8 1.8-3.6M21.7 16.4c0-1.8 1.8-1.8 1.8-3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">Хлопчик</span>
+        <span class="brand__sub">кофейня &amp; пекарня</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="index.html" data-nav="home">Главная</a>
+      <a href="menu.html" data-nav="menu">Меню</a>
+      <a href="about.html" data-nav="about">О нас</a>
+      <a href="contacts.html" data-nav="contacts">Контакты</a>
+      <a href="account.html" data-nav="account">Кабинет</a>
+    </nav>
+
+    <div class="head__actions">
+      <a class="cart-pill" href="cart.html" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M6 7h12l-1.2 12.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z" stroke-linejoin="round"/>
+          <path d="M9 7V5.6A3 3 0 0 1 12 2.6a3 3 0 0 1 3 3V7" stroke-linecap="round"/>
+        </svg>
+        <span class="cart-pill__label">Корзина</span>
+        <span class="cart-pill__count" data-cart-count>0</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- Шапка для авторизованного пользователя -->
+  <div class="page-head" id="account-head" hidden>
+    <div class="wrap page-head__in">
+      <div>
+        <p class="crumbs"><a href="index.html">Главная</a> / Личный кабинет</p>
+        <h1>Здравствуйте,<br><em id="head-name">гость</em></h1>
+      </div>
+      <p class="page-head__aside">Здесь хранятся ваши заказы и данные для доставки. Мы не передаём их никому — и не звоним без повода.</p>
+    </div>
+  </div>
+
+  <!-- ВХОД / РЕГИСТРАЦИЯ -->
+  <section class="wrap auth" id="auth">
+    <div class="auth__lead">
+      <p class="eyebrow">Личный кабинет</p>
+      <h1 style="margin-top:14px">Ваш столик<br><em>уже записан</em></h1>
+      <p>Войдите, чтобы не вводить данные при каждом заказе и видеть, что вы заказывали в прошлый раз.</p>
+      <ul class="auth__benefits">
+        <li>История заказов со статусами</li>
+        <li>Сохранённые имя, телефон и адрес</li>
+        <li>Повтор заказа в пару кликов</li>
+        <li>Без рассылок и навязчивых звонков</li>
+      </ul>
+      <div class="auth__demo">
+        Демо-доступ для проверки:<br>
+        гость — <b>demo@hlopchik.ru</b> / <b>demo1234</b><br>
+        администратор — <b>admin@hlopchik.ru</b> / <b>admin1234</b>
+      </div>
+    </div>
+
+    <div class="form-card">
+      <div class="tabs" role="tablist" aria-label="Вход или регистрация">
+        <button class="tab" id="tab-login" role="tab" aria-selected="true" aria-controls="panel-login" type="button">Вход</button>
+        <button class="tab" id="tab-register" role="tab" aria-selected="false" aria-controls="panel-register" type="button">Регистрация</button>
+      </div>
+
+      <div class="panel" id="panel-login" role="tabpanel" aria-labelledby="tab-login">
+        <form class="form" id="login-form" novalidate>
+          <div class="alert" id="login-alert" role="alert"></div>
+          <div class="field" data-field="email">
+            <label for="login-email">E-mail</label>
+            <input class="input" id="login-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            <span class="field__err"></span>
+          </div>
+          <div class="field" data-field="password">
+            <label for="login-password">Пароль</label>
+            <input class="input" id="login-password" name="password" type="password" autocomplete="current-password" placeholder="••••••••">
+            <span class="field__err"></span>
+          </div>
+          <div class="form__foot">
+            <button class="btn btn--rust" type="submit">Войти</button>
+            <a class="link" href="contacts.html">Забыли пароль?</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="panel" id="panel-register" role="tabpanel" aria-labelledby="tab-register" hidden>
+        <form class="form" id="register-form" novalidate>
+          <div class="alert" id="register-alert" role="alert"></div>
+          <div class="form__grid">
+            <div class="field form__full" data-field="name">
+              <label for="reg-name">Имя</label>
+              <input class="input" id="reg-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться">
+              <span class="field__err"></span>
+            </div>
+            <div class="field form__full" data-field="email">
+              <label for="reg-email">E-mail</label>
+              <input class="input" id="reg-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+              <span class="field__err"></span>
+            </div>
+            <div class="field form__full" data-field="phone">
+              <label for="reg-phone">Телефон</label>
+              <input class="input" id="reg-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 900 000-00-00">
+              <span class="field__err"></span>
+            </div>
+            <div class="field" data-field="password">
+              <label for="reg-password">Пароль</label>
+              <input class="input" id="reg-password" name="password" type="password" autocomplete="new-password" placeholder="минимум 6 символов">
+              <span class="field__err"></span>
+            </div>
+            <div class="field" data-field="password2">
+              <label for="reg-password2">Повторите пароль</label>
+              <input class="input" id="reg-password2" name="password2" type="password" autocomplete="new-password" placeholder="ещё раз">
+              <span class="field__err"></span>
+            </div>
+          </div>
+          <div class="form__foot">
+            <button class="btn btn--rust" type="submit">Создать аккаунт</button>
+            <span class="form__notice">Пароль хранится в виде хеша — имитация серверного хранения в localStorage.</span>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ПРОФИЛЬ -->
+  <section class="wrap profile-layout" id="profile" hidden>
+    <aside class="profile-card">
+      <div class="avatar" id="profile-avatar" aria-hidden="true">—</div>
+      <p class="profile-card__name" id="profile-name">—</p>
+      <p class="profile-card__mail" id="profile-email">—</p>
+      <div class="profile-card__meta">
+        <span id="profile-since">—</span><br>
+        <a class="link" id="profile-admin-link" href="admin.html" hidden>Панель администратора →</a>
+      </div>
+      <div class="profile-card__actions">
+        <button class="btn btn--ghost btn--sm" id="logout-btn" type="button">Выйти</button>
+        <a class="btn btn--rust btn--sm" href="menu.html">В меню</a>
+      </div>
+    </aside>
+
+    <div>
+      <div class="panel-head">
+        <div>
+          <h2>Личные данные</h2>
+          <p>Имя, телефон и почта — их видит только бариста при выдаче заказа.</p>
+        </div>
+        <button class="text-btn" id="edit-toggle" type="button">Изменить</button>
+      </div>
+
+      <dl class="info-list" id="profile-info">
+        <div class="info-row"><dt>Имя</dt><dd id="info-name">—</dd></div>
+        <div class="info-row"><dt>E-mail</dt><dd id="info-email">—</dd></div>
+        <div class="info-row"><dt>Телефон</dt><dd id="info-phone">—</dd></div>
+        <div class="info-row"><dt>На сайте с</dt><dd id="info-created">—</dd></div>
+      </dl>
+
+      <form class="form profile-form" id="profile-form" hidden novalidate>
+        <div class="alert" id="profile-alert" role="alert"></div>
+        <div class="form__grid">
+          <div class="field" data-field="name">
+            <label for="pf-name">Имя</label>
+            <input class="input" id="pf-name" name="name" type="text" autocomplete="name">
+            <span class="field__err"></span>
+          </div>
+          <div class="field" data-field="phone">
+            <label for="pf-phone">Телефон</label>
+            <input class="input" id="pf-phone" name="phone" type="tel" autocomplete="tel">
+            <span class="field__err"></span>
+          </div>
+          <div class="field form__full" data-field="email">
+            <label for="pf-email">E-mail</label>
+            <input class="input" id="pf-email" name="email" type="email" autocomplete="email">
+            <span class="field__err"></span>
+          </div>
+        </div>
+        <div class="form__foot">
+          <div class="row" style="flex-wrap:wrap">
+            <button class="btn btn--rust" type="submit">Сохранить</button>
+            <button class="btn btn--ghost" id="edit-cancel" type="button">Отмена</button>
+          </div>
+        </div>
+      </form>
+
+      <div class="panel-head" style="margin-top:clamp(40px,5vw,60px)">
+        <div>
+          <h2>История заказов</h2>
+          <p>Все заказы, оформленные под этим аккаунтом.</p>
+        </div>
+        <a class="link" href="menu.html">Сделать новый заказ</a>
+      </div>
+
+      <div class="table-wrap" id="orders-wrap">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Заказ</th>
+              <th>Дата</th>
+              <th>Состав</th>
+              <th>Сумма</th>
+              <th>Статус</th>
+            </tr>
+          </thead>
+          <tbody id="orders-body"></tbody>
+        </table>
+      </div>
+
+      <div class="empty" id="orders-empty" hidden style="margin-top:24px">
+        <h3>Заказов пока нет</h3>
+        <p>Как только оформите первый — он появится здесь вместе со статусом.</p>
+        <a class="btn btn--ghost" href="menu.html">Выбрать что-нибудь</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <p class="foot__word">Хлопчик</p>
+        <p class="foot__tag">Кофейня, в которой хочется остаться на второй капучино. Пр. Красной Армии, 12 — с 2020 года.</p>
+      </div>
+      <div class="foot__cols">
+        <div class="foot__col">
+          <h3>Меню</h3>
+          <a href="menu.html#coffee">Кофе</a>
+          <a href="menu.html#desserts">Десерты</a>
+          <a href="menu.html#breakfast">Завтраки</a>
+        </div>
+        <div class="foot__col">
+          <h3>Кофейня</h3>
+          <a href="about.html">О нас</a>
+          <a href="contacts.html">Контакты</a>
+          <a href="account.html">Личный кабинет</a>
+          <a href="cart.html">Корзина</a>
+        </div>
+        <div class="foot__col">
+          <h3>Связь</h3>
+          <a href="tel:+74951201414">+7 495 120-14-14</a>
+          <a href="mailto:hello@hlopchik.ru">hello@hlopchik.ru</a>
+          <span>8:00–22:00, без выходных</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 Кофейня «Хлопчик». Учебный проект.</span>
+      <span>Сергиев Посад, пр. Красной Армии, 12 · ежедневно 8:00–22:00</span>
+      <a href="admin.html">Панель администратора</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

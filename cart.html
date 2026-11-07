@@ -1,0 +1,225 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Корзина — кофейня «Хлопчик»</title>
+  <meta name="description" content="Ваш заказ в кофейне «Хлопчик»: проверьте состав, выберите доставку или самовывоз и оформите заказ.">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-page="cart">
+
+<a class="skip" href="#main">Перейти к содержимому</a>
+
+<header class="head" id="head">
+  <div class="wrap head__in">
+    <a class="brand" href="index.html" aria-label="Хлопчик — на главную">
+      <svg class="brand__mark" viewBox="0 0 40 40" aria-hidden="true">
+        <circle cx="20" cy="20" r="19" fill="none" stroke="currentColor" stroke-width="1.2"/>
+        <path d="M12 21.5h14v4.2a7 7 0 0 1-7 7 7 7 0 0 1-7-7v-4.2Z" fill="currentColor"/>
+        <path d="M26 22.6h1.9a3.4 3.4 0 0 1 0 6.8H26" fill="none" stroke="currentColor" stroke-width="1.5"/>
+        <path d="M16.5 16.4c0-1.8 1.8-1.8 1.8-3.6M21.7 16.4c0-1.8 1.8-1.8 1.8-3.6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+      </svg>
+      <span class="brand__text">
+        <span class="brand__name">Хлопчик</span>
+        <span class="brand__sub">кофейня &amp; пекарня</span>
+      </span>
+    </a>
+
+    <nav class="nav" id="nav" aria-label="Основная навигация">
+      <a href="index.html" data-nav="home">Главная</a>
+      <a href="menu.html" data-nav="menu">Меню</a>
+      <a href="about.html" data-nav="about">О нас</a>
+      <a href="contacts.html" data-nav="contacts">Контакты</a>
+      <a href="account.html" data-nav="account">Кабинет</a>
+    </nav>
+
+    <div class="head__actions">
+      <a class="cart-pill" href="cart.html" aria-label="Корзина">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+          <path d="M6 7h12l-1.2 12.2a2 2 0 0 1-2 1.8H9.2a2 2 0 0 1-2-1.8L6 7Z" stroke-linejoin="round"/>
+          <path d="M9 7V5.6A3 3 0 0 1 12 2.6a3 3 0 0 1 3 3V7" stroke-linecap="round"/>
+        </svg>
+        <span class="cart-pill__label">Корзина</span>
+        <span class="cart-pill__count" data-cart-count>0</span>
+      </a>
+      <button class="burger" id="burger" aria-label="Открыть меню" aria-expanded="false" aria-controls="nav">
+        <span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+  <div class="page-head">
+    <div class="wrap page-head__in">
+      <div>
+        <p class="crumbs"><a href="index.html">Главная</a> / Корзина</p>
+        <h1>Почти <em>готово</em></h1>
+      </div>
+      <p class="page-head__aside">Проверьте состав заказа. Доставка по Сергиеву Посаду — 199 ₽, бесплатно от 1 500 ₽. Самовывоз всегда бесплатный.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="cart-layout" id="cart-layout">
+      <div>
+        <div class="cart-list" id="cart-list"></div>
+        <p class="small muted" style="margin-top:18px">Количество можно изменить в любой момент — итог пересчитается автоматически. Позицию легко убрать, нажав «Удалить».</p>
+      </div>
+
+      <aside class="summary" id="cart-summary">
+        <h2 class="summary__title">Ваш заказ</h2>
+
+        <div class="seg" role="radiogroup" aria-label="Способ получения">
+          <label>
+            <input type="radio" name="method" value="delivery" checked>
+            <span>Доставка</span>
+          </label>
+          <label>
+            <input type="radio" name="method" value="pickup">
+            <span>Самовывоз</span>
+          </label>
+        </div>
+
+        <dl class="summary__rows">
+          <div><dt>Товары</dt><dd id="sum-subtotal">0 ₽</dd></div>
+          <div><dt id="sum-delivery-label">Доставка</dt><dd id="sum-delivery">—</dd></div>
+        </dl>
+
+        <div class="summary__total">
+          <span>Итого</span>
+          <strong id="sum-total">0 ₽</strong>
+        </div>
+
+        <button class="btn btn--rust btn--block summary__cta" id="checkout-open" type="button">Оформить заказ</button>
+        <p class="summary__note" id="summary-note">Бесплатная доставка от 1 500 ₽. Оплата при получении или картой на месте.</p>
+      </aside>
+    </div>
+
+    <div class="empty" id="cart-empty" hidden style="margin-block:48px 80px">
+      <h3>Корзина пока пустая</h3>
+      <p>Самое время это исправить — в меню есть капучино и свежие круассаны.</p>
+      <a class="btn btn--rust" href="menu.html">Перейти в меню</a>
+    </div>
+  </div>
+</main>
+
+<!-- ОФОРМЛЕНИЕ ЗАКАЗА -->
+<div class="modal" id="checkout" aria-hidden="true">
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__panel" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+    <button class="modal__x" type="button" data-close aria-label="Закрыть">×</button>
+
+    <div id="checkout-wrap">
+      <p class="eyebrow">Последний шаг</p>
+      <h2 class="modal__title" id="checkout-title">Оформление заказа</h2>
+
+      <form class="form" id="checkout-form" novalidate>
+        <div class="alert" id="checkout-alert" role="alert"></div>
+
+        <div class="form__grid">
+          <div class="field" data-field="name">
+            <label for="co-name">Имя</label>
+            <input class="input" id="co-name" name="name" type="text" autocomplete="name" placeholder="Как к вам обращаться">
+            <span class="field__err"></span>
+          </div>
+          <div class="field" data-field="phone">
+            <label for="co-phone">Телефон</label>
+            <input class="input" id="co-phone" name="phone" type="tel" autocomplete="tel" placeholder="+7 900 000-00-00">
+            <span class="field__err"></span>
+          </div>
+          <div class="field form__full" data-field="email">
+            <label for="co-email">E-mail</label>
+            <input class="input" id="co-email" name="email" type="email" autocomplete="email" placeholder="you@example.com">
+            <span class="field__err"></span>
+          </div>
+          <div class="field form__full" data-field="address" id="co-address-field">
+            <label for="co-address">Адрес доставки</label>
+            <input class="input" id="co-address" name="address" type="text" autocomplete="street-address" placeholder="Улица, дом, квартира">
+            <span class="field__err"></span>
+          </div>
+          <div class="field form__full" data-field="payment">
+            <label for="co-payment">Оплата</label>
+            <select class="select" id="co-payment" name="payment">
+              <option value="card">Картой при получении</option>
+              <option value="cash">Наличными при получении</option>
+              <option value="transfer">Переводом по счёту</option>
+            </select>
+            <span class="field__err"></span>
+          </div>
+          <div class="field form__full" data-field="comment">
+            <label for="co-comment">Комментарий <span class="muted">(необязательно)</span></label>
+            <textarea class="textarea" id="co-comment" name="comment" placeholder="Например: позвонить за 10 минут, без сахара"></textarea>
+            <span class="field__err"></span>
+          </div>
+        </div>
+
+        <div class="form__foot">
+          <button class="btn btn--rust" type="submit">Подтвердить заказ</button>
+          <span class="form__notice">Итого: <b id="checkout-total">0 ₽</b> · способ получения: <span id="checkout-method">доставка</span></span>
+        </div>
+      </form>
+    </div>
+
+    <div class="success" id="checkout-done" hidden>
+      <div class="success__mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
+          <path d="m4 12.5 5 5L20 6.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </div>
+      <h3>Заказ принят</h3>
+      <p>Мы уже начали готовить. Номер заказа — <span class="success__num" id="order-number">#0000</span>. Сохраните его: по нему мы найдём вас на стойке.</p>
+      <p class="small muted" style="margin-top:12px">Детали заказа появятся в личном кабинете, если вы вошли в аккаунт.</p>
+      <div class="success__actions">
+        <a class="btn btn--ghost" href="menu.html">Вернуться в меню</a>
+        <a class="btn btn--rust" href="account.html">Личный кабинет</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot__top">
+      <div class="foot__brand">
+        <p class="foot__word">Хлопчик</p>
+        <p class="foot__tag">Кофейня, в которой хочется остаться на второй капучино. Пр. Красной Армии, 12 — с 2020 года.</p>
+      </div>
+      <div class="foot__cols">
+        <div class="foot__col">
+          <h3>Меню</h3>
+          <a href="menu.html#coffee">Кофе</a>
+          <a href="menu.html#desserts">Десерты</a>
+          <a href="menu.html#breakfast">Завтраки</a>
+        </div>
+        <div class="foot__col">
+          <h3>Кофейня</h3>
+          <a href="about.html">О нас</a>
+          <a href="contacts.html">Контакты</a>
+          <a href="account.html">Личный кабинет</a>
+          <a href="cart.html">Корзина</a>
+        </div>
+        <div class="foot__col">
+          <h3>Связь</h3>
+          <a href="tel:+74951201414">+7 495 120-14-14</a>
+          <a href="mailto:hello@hlopchik.ru">hello@hlopchik.ru</a>
+          <span>8:00–22:00, без выходных</span>
+        </div>
+      </div>
+    </div>
+    <div class="foot__bottom">
+      <span>© 2026 Кофейня «Хлопчик». Учебный проект.</span>
+      <span>Сергиев Посад, пр. Красной Армии, 12 · ежедневно 8:00–22:00</span>
+      <a href="admin.html">Панель администратора</a>
+    </div>
+  </div>
+</footer>
+
+<div class="toasts" id="toasts" aria-live="polite" aria-atomic="false"></div>
+
+<script src="js/data.js"></script>
+<script src="js/store.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
